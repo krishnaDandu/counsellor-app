@@ -26,6 +26,7 @@ import { commonApiService } from '../../services/commonApiService';
 export class EnquiryListComponent implements OnInit {
 
   enquiries: any[] = [];
+  message: string = '';
 
   // enquiries = [
   //   {
@@ -63,10 +64,16 @@ export class EnquiryListComponent implements OnInit {
   }
 
   getEnquiries() {
-    this.commonApiService.getApi('enquiries/getAllEnquiries').subscribe({
+    const counsellor = JSON.parse(
+      sessionStorage.getItem('counsellor') || '{}'
+    );
+
+    //? counsellorId = 13
+    this.commonApiService.getApi('enquiries/getAllEnquiries', { counsellorId: counsellor.counsellorId }).subscribe({
       next: (response: any) => {
         console.log('Enquiries Response:', response);
-        this.enquiries = response;
+        this.enquiries = response.data;
+        this.message = response.message;
         this.cdr.markForCheck();
       },
       error: (error) => {

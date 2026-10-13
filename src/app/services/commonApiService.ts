@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
@@ -68,15 +68,19 @@ export class commonApiService {
     });
   }
 
-  getApi<T>(endpoint: string): Observable<T> {
+  getApi<T>(endpoint: string, params?: any): Observable<T> {
     const url = `${this.baseUrl}${endpoint}`;
 
-    const httpOptions = {
+    const httpOptions: { headers: HttpHeaders; params?: HttpParams } = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
         // You can add Authorization headers here if needed
       })
     };
+
+    if (params) {
+      httpOptions.params = new HttpParams({ fromObject: params });
+    }
 
     // Returns an Observable of type T
     return this.http.get<T>(url, httpOptions);
