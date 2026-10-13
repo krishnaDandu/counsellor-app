@@ -1,0 +1,145 @@
+
+<div class="auth-page">
+
+  <div class="container">
+
+    <div class="row justify-content-center align-items-center min-vh-100">
+
+      <div class="col-md-6 col-lg-5">
+
+        <div class="card shadow border-0">
+
+          <div class="card-body p-4 p-md-5">
+
+            <div class="text-center mb-4">
+
+              <div class="logo-circle">
+                <i class="bi bi-person-plus-fill"></i>
+              </div>
+
+              <h3 class="mt-3">Counsellor Registration</h3>
+
+              <p class="text-muted">
+                Create your counsellor account
+              </p>
+
+            </div>
+
+            <form #registrationForm="ngForm"
+                  (ngSubmit)="registrationForm.valid && register()">
+
+              <!-- Name -->
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  Name
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  [(ngModel)]="counsellor.name"
+                  required
+                  placeholder="Enter your name">
+
+              </div>
+
+              <!-- Email -->
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  Email
+                </label>
+
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  [(ngModel)]="counsellor.email"
+                  required
+                  email
+                  placeholder="Enter email">
+
+              </div>
+
+              <!-- Phone -->
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  Phone Number
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phno"
+                  [(ngModel)]="counsellor.phno"
+                  required
+                  maxlength="10"
+                  placeholder="Enter phone number">
+
+              </div>
+
+              <!-- Password -->
+
+              <div class="mb-4">
+
+                <label class="form-label">
+                  Password
+                </label>
+
+                <input
+                  type="password"
+                  class="form-control"
+                  name="pwd"
+                  [(ngModel)]="counsellor.pwd"
+                  required
+                  minlength="6"
+                  placeholder="Enter password">
+
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primary w-100"
+                [disabled]="registrationForm.invalid">
+
+                <i class="bi bi-person-plus me-2"></i>
+
+                Register
+
+              </button>
+
+            </form>
+
+            <div class="text-center mt-4">
+
+              <span class="text-muted">
+                Already have an account?
+              </span>
+
+              <a
+                routerLink="/login"
+                class="ms-1 text-decoration-none">
+
+                Login
+
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

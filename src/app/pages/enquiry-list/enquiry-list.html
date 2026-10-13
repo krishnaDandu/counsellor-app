@@ -1,0 +1,120 @@
+<div class="container-fluid bg-light min-vh-100">
+
+
+  <div class="container py-4">
+
+    <button class="btn btn-primary pull-right" (click)="addEnquiry()">
+
+      <i class="bi bi-plus-lg me-1"></i>
+
+      Add Enquiry
+
+    </button>
+  </div>
+
+  <div class="container py-4">
+
+    <div class="card shadow-sm border-0">
+
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+          <div>
+
+            <h4 class="mb-1">
+              View Enquiries
+            </h4>
+
+            <p class="text-muted mb-0">
+              Manage student enquiries
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+          <table class="table table-hover align-middle">
+
+            <thead class="table-light">
+
+              <tr>
+
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Phone</th>
+                <th>Course</th>
+                <th>Mode</th>
+                <th>Status</th>
+                <th>Action</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr *ngFor="let enquiry of enquiries; index as i">
+
+                <td>
+                  {{ i + 1 }}
+                </td>
+
+                <td>
+                  {{ enquiry?.stuName }}
+                </td>
+
+                <td>
+                  {{ enquiry?.stuPhno }}
+                </td>
+
+                <td>
+                  {{ enquiry.course?.courseName }}
+                </td>
+
+                <td>
+                  {{ enquiry?.classMode }}
+                </td>
+
+                <td>
+
+                  <span class="badge" [ngClass]="{
+                      'bg-primary': enquiry.enqStatus === 'NEW',
+                      'bg-success': enquiry.enqStatus === 'ENROLLED',
+                      'bg-danger': enquiry.enqStatus === 'LOST'
+                    }">
+
+                    {{ enquiry.enqStatus }}
+
+                  </span>
+
+                </td>
+
+                <td>
+
+                  <button class="btn btn-sm btn-outline-primary" (click)="editEnquiry(enquiry.enqId)">
+
+                    <i class="bi bi-pencil"></i>
+
+                  </button>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

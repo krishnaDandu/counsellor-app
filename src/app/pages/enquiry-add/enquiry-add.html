@@ -1,0 +1,93 @@
+<div class="container-fluid bg-light min-vh-100">
+  <!-- <nav class="navbar bg-white shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand fw-bold text-primary"> Counsellor Portal </span>
+
+      <button class="btn btn-outline-secondary" (click)="goToDashboard()">
+        Dashboard
+      </button>
+    </div>
+  </nav> -->
+  <!-- Header -->
+
+
+  <app-header-panel></app-header-panel>
+
+  <div class="container py-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <a (click)="goToDashboard()" class="ms-1 text-decoration-none pull-right mb-3 d-inline-block">
+          Back to Dashboard
+        </a>
+        <h4 class="mb-4"> Add Enquiry </h4>
+
+
+        <form #enquiryForm="ngForm" (ngSubmit)="enquiryForm.valid && saveEnquiry()">
+          <div class="row">
+            <!-- Student Name -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Student Name </label>
+              <input type="text" class="form-control" name="stuName" [(ngModel)]="enquiry.stuName" required
+                placeholder="Enter student name">
+            </div>
+
+            <!-- Student Phone -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Student Phone </label>
+              <input type="text" class="form-control" name="stuPhno" [(ngModel)]="enquiry.stuPhno" required
+                maxlength="10" placeholder="Enter phone number">
+            </div>
+
+
+            <!-- Class Mode -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Class Mode </label>
+              <select class="form-select" name="classMode" [(ngModel)]="enquiry.classMode" required>
+                <option value=""> Select Mode </option>
+                <option value="ONLINE"> Online </option>
+                <option value="OFFLINE"> Offline </option>
+              </select>
+            </div>
+
+
+            <!-- Course -->
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Course </label>
+              <select class="form-select" name="course" [(ngModel)]="enquiry.courseId" required>
+                <option [ngValue]="null">Select Course</option>
+                <option *ngFor="let course of courses" [value]="course.courseId">
+                  {{ course.courseName }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Status -->
+
+            <div class="col-md-6 mb-4">
+              <label class="form-label"> Enquiry Status </label>
+              <select class="form-select" name="enqStatus" [(ngModel)]="enquiry.enqStatus" required>
+                <option value=""> Select Status </option>
+                <option value="NEW"> New </option>
+                <option value="ENROLLED"> Enrolled </option>
+                <option value="LOST"> Lost </option>
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <button type="submit" class="btn btn-primary" [disabled]="enquiryForm.invalid">
+            <i class="bi bi-save me-2"></i>
+            Save Enquiry
+          </button>
+
+          <button type="button" class="btn btn-secondary ms-2" (click)="goToDashboard()">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
