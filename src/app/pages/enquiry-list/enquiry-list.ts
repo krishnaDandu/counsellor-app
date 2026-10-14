@@ -94,4 +94,10 @@ export class EnquiryListComponent implements OnInit {
 
   }
 
+  searchEnquiries() {
+    const counsellor = JSON.parse(
+      sessionStorage.getItem('counsellor') || '{}'
+    );
+  }
+
 }

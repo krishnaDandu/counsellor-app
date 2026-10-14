@@ -1,4 +1,4 @@
-import { Component, OnInit, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { EnquiryAddComponent } from '../enquiry-add/enquiry-add';
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   enquiryAddComponent = viewChild(EnquiryAddComponent);
 
-  constructor(private router: Router, private commonApiService: commonApiService) { }
+  constructor(private router: Router, private commonApiService: commonApiService, private cdr: ChangeDetectorRef) { }
 
   logout() {
 
@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
         if (res) {
           this.dashboard = res;
           console.log('Dashboard data:', this.dashboard);
+          this.cdr.markForCheck();
         }
       },
       error: (err) => {
