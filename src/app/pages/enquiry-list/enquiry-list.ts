@@ -113,8 +113,11 @@ export class EnquiryListComponent implements OnInit {
     this.getEnquiries();
   }
 
-  editEnquiry(id: number): void {
-    this.router.navigate(['/enquiries/edit', id]);
+  editEnquiry(data: any): void {
+
+    this.router.navigate(['/enquiries/edit'], {
+      state: { enquiry: data }
+    });
   }
 
   addEnquiry(): void {

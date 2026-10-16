@@ -57,7 +57,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'enquiries/edit/:id',
+    path: 'enquiries/edit',
     component: EnquiryEditComponent
   },
 

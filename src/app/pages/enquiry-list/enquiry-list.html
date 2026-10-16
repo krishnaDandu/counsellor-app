@@ -88,6 +88,8 @@
                 <th>Phone</th>
                 <th>Course</th>
                 <th>Mode</th>
+                <th>Created Date</th>
+                <th>Updated Date</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -102,7 +104,8 @@
                 <td>{{ enquiry?.stuPhno }}</td>
                 <td>{{ enquiry?.courseName }}</td>
                 <td>{{ enquiry?.classMode }}</td>
-
+                <td>{{ enquiry?.createdAt}}</td>
+                <td>{{ enquiry?.updatedAt}}</td>
                 <td>
                   <span class="badge" [ngClass]="{
                       'bg-primary': enquiry.enqStatus === 'NEW',
@@ -114,8 +117,8 @@
                 </td>
 
                 <td>
-                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="editEnquiry(enquiry.enqId)">
-                    <i class="bi bi-pencil"></i>
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="editEnquiry(enquiry)">
+                    <i class=" bi bi-pencil"></i>
                   </button>
                 </td>
               </tr>

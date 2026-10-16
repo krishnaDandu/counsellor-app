@@ -57,6 +57,17 @@ export class commonApiService {
     // );
   }
 
+  putAPI<T>(endpoint: string, data: any): Observable<T> {
+    const url = `${this.baseUrl}${endpoint}`;
+
+    return this.http.put<T>(url, data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+
+  }
+
   postTextAPI(endpoint: string, data: any): Observable<string> {
     const url = `${this.baseUrl}${endpoint}`;
 

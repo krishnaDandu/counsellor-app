@@ -1,164 +1,78 @@
 <div class="container-fluid bg-light min-vh-100">
-
-  <nav class="navbar bg-white shadow-sm">
-
-    <div class="container-fluid">
-
-      <span class="navbar-brand fw-bold text-primary">
-        Counsellor Portal
-      </span>
-
-      <button
-        class="btn btn-outline-secondary"
-        (click)="goToEnquiries()">
-
-        Back
-
-      </button>
-
-    </div>
-
-  </nav>
+  <app-header-panel></app-header-panel>
 
 
   <div class="container py-4">
-
     <div class="card shadow-sm border-0">
-
       <div class="card-body p-4">
+        <a (click)="goToDashboard()" class="ms-1 text-decoration-none pull-right mb-3 d-inline-block">
+          Back to Dashboard
+        </a>
 
         <h4 class="mb-4">
           Update Enquiry
         </h4>
 
-        <form
-          #enquiryForm="ngForm"
-          (ngSubmit)="enquiryForm.valid && updateEnquiry()">
-
+        <form #enquiryForm="ngForm" (ngSubmit)="enquiryForm.valid && updateEnquiry()">
           <div class="row">
-
             <div class="col-md-6 mb-3">
-
               <label class="form-label">
                 Student Name
               </label>
 
-              <input
-                type="text"
-                class="form-control"
-                name="stuName"
-                [(ngModel)]="enquiry.stuName"
-                required>
+              <input type="text" class="form-control" name="stuName" [disabled]="true"
+                [(ngModel)]="currentEnquiry.stuName" required>
 
             </div>
 
-
             <div class="col-md-6 mb-3">
-
               <label class="form-label">
                 Student Phone
               </label>
 
-              <input
-                type="text"
-                class="form-control"
-                name="stuPhno"
-                [(ngModel)]="enquiry.stuPhno"
-                required>
+              <input type="text" class="form-control" name="stuPhno" [(ngModel)]="currentEnquiry.stuPhno" required>
 
             </div>
 
-
             <div class="col-md-6 mb-3">
+              <label class="form-label"> Class Mode </label>
 
-              <label class="form-label">
-                Class Mode
-              </label>
-
-              <select
-                class="form-select"
-                name="classMode"
-                [(ngModel)]="enquiry.classMode"
-                required>
-
-                <option value="ONLINE">
-                  Online
-                </option>
-
-                <option value="OFFLINE">
-                  Offline
-                </option>
-
+              <select class="form-select" name="classMode" [(ngModel)]="currentEnquiry.classMode" required>
+                <option value="ONLINE"> Online </option>
+                <option value="OFFLINE"> Offline </option>
               </select>
-
             </div>
 
 
             <div class="col-md-6 mb-3">
+              <label class="form-label"> Course </label>
 
-              <label class="form-label">
-                Course
-              </label>
-
-              <select
-                class="form-select"
-                name="courseId"
-                [(ngModel)]="enquiry.courseId"
-                required>
-
-                <option
-                  *ngFor="let course of courses"
-                  [ngValue]="course.courseId">
-
+              <select class="form-select" name="courseId" [(ngModel)]="currentEnquiry.courseId" required>
+                <option *ngFor="let course of courses" [ngValue]="course.courseId">
                   {{ course.courseName }}
-
                 </option>
-
               </select>
-
             </div>
 
 
             <div class="col-md-6 mb-4">
+              <label class="form-label"> Status </label>
 
-              <label class="form-label">
-                Status
-              </label>
-
-              <select
-                class="form-select"
-                name="enqStatus"
-                [(ngModel)]="enquiry.enqStatus"
+              <select class="form-select" name="enqStatus" [disabled]="true" [(ngModel)]="currentEnquiry.enqStatus"
                 required>
-
-                <option value="NEW">
-                  New
-                </option>
-
-                <option value="ENROLLED">
-                  Enrolled
-                </option>
-
-                <option value="LOST">
-                  Lost
-                </option>
-
+                <option value="NEW"> New </option>
+                <option value="ENROLLED"> Enrolled </option>
+                <option value="LOST"> Lost </option>
               </select>
-
             </div>
-
           </div>
 
-
-          <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="enquiryForm.invalid">
-
+          <button type="submit" class="btn btn-primary" [disabled]="enquiryForm.invalid">
             <i class="bi bi-pencil-square me-2"></i>
-
             Update Enquiry
-
+          </button>
+          <button type="button" class="btn btn-secondary ms-2" (click)="goToDashboard()">
+            Cancel
           </button>
 
         </form>

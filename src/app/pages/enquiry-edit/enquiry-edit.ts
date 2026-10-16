@@ -1,26 +1,18 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-enquiry-edit',
-//   imports: [],
-//   templateUrl: './enquiry-edit.html',
-//   styleUrl: './enquiry-edit.scss',
-// })
-// export class EnquiryEdit {
-
-// }
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HeaderPanel } from '../../shared/header-panel/header-panel';
+import { commonApiService } from '../../services/commonApiService';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-enquiry-edit',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    HeaderPanel
   ],
   templateUrl: './enquiry-edit.html',
   styleUrl: './enquiry-edit.scss'
@@ -29,13 +21,20 @@ export class EnquiryEditComponent {
 
   enquiryId!: number;
 
-  enquiry = {
-    stuName: 'Ravi Kumar',
-    stuPhno: '9876543210',
-    classMode: 'ONLINE',
-    enqStatus: 'NEW',
-    courseId: 1
+  currentEnquiry = {
+    stuName: '',
+    stuPhno: '',
+    classMode: '',
+    enqStatus: '',
+    courseId: null,
+    enqId: null,
+    createdAt: '',
+    updatedAt: '',
+    courseName: ''
   };
+
+
+
 
   courses = [
     {
@@ -52,32 +51,59 @@ export class EnquiryEditComponent {
     }
   ];
 
+
   constructor(
     private route: ActivatedRoute,
-    public router: Router
-  ) {}
+    public router: Router,
+    private commonApiService: commonApiService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
 
-    this.enquiryId =
-      Number(this.route.snapshot.paramMap.get('id'));
 
-    console.log('Editing Enquiry:', this.enquiryId);
+
+    this.currentEnquiry = history.state.enquiry;
+    console.log('Editing Enquiry:', this.currentEnquiry);
+    // if (!thiscurrentEnquiry) {
+    //   this.router.navigate(['/enquiries']);
+    //   return;
+    // }
 
   }
 
   updateEnquiry() {
 
-    console.log(
-      'Updated Enquiry:',
-      this.enquiry
-    );
+    console.log('Updated Enquiry:', this.currentEnquiry);
+    const reqPayload = {
+      stuPhno: this.currentEnquiry.stuPhno,
+      classMode: this.currentEnquiry.classMode,
+      //stuName: this.currentEnquiry.stuName,
+      // enqStatus: this.currentEnquiry.enqStatus,
+      courseId: this.currentEnquiry.courseId
+    }
 
-    alert('Enquiry updated successfully');
+    this.commonApiService.putAPI(`enquiries/updateenquiry/${this.currentEnquiry.enqId}`, reqPayload).subscribe({
+      next: (response: any) => {
+        this.snackBar.open(
+          response.message || "Enquiry updated successfully",
+          'Close',
+          {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          }
+        );
+      },
+      error: (error) => {
+        console.error('Error updating enquiry:', error);
+      }
+
+    });
+
 
     this.goToEnquiries();
 
-   // this.router.navigate(['/enquiries']);
 
   }
 
@@ -85,4 +111,7 @@ export class EnquiryEditComponent {
     this.router.navigate(['/enquiries']);
   }
 
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
 }
